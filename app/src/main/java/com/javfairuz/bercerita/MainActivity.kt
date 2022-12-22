@@ -27,6 +27,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.javfairuz.bercerita.question.PageQuestion
 import com.javfairuz.bercerita.ui.theme.BerceritaTheme
 
 class MainActivity : ComponentActivity() {
@@ -62,7 +63,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("question"){
-                            Question(navHostController = navController)
+                            PageQuestion(navHostController = navController)
                         }
                     }
                 }
