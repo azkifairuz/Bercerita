@@ -26,7 +26,7 @@ import com.javfairuz.bercerita.ui.theme.BerceritaTheme
 fun QuestionContent(
     question: String = "",
     options: List<OptionsModel> = listOf(),
-    onAnswerClicked: (score:Int) -> Unit = {}
+    onAnswerClicked: (OptionsModel) -> Unit = {}
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -54,7 +54,7 @@ fun QuestionContent(
                     .fillMaxWidth()
                     .height(80.dp)
                     .padding(10.dp),
-                onClick = { onAnswerClicked(it.score) },
+                onClick = { onAnswerClicked(it) },
                 elevation = 10.dp,
             ) {
                 Column(Modifier.padding(15.dp), verticalArrangement = Arrangement.Center) {
