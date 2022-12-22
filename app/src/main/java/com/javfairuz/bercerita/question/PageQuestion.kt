@@ -1,5 +1,6 @@
 package com.javfairuz.bercerita.question
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,9 +39,22 @@ fun PageQuestion(navHostController: NavHostController = rememberNavController())
 
 
     fun nextQuestion() {
-        if (currentQuestion != question.size -1) {
+        //jika masih di pertanyaan lanjut ke pertanyaan selanjutnya
+        if (currentQuestion != question.size - 1) {
             currentQuestion += 1
+            return
         }
+        //pindah ke result page dengan membawa data score
+        if(currentQuestion == question.size -1){
+            navHostController.navigate("result/${score}")
+        }
+    }
+
+    //hitung score nya
+    fun calculateScore(data: OptionsModel) {
+        score += data.score
+        Log.e("score",score.toString())
+        nextQuestion()
     }
 
 
@@ -64,7 +78,7 @@ fun PageQuestion(navHostController: NavHostController = rememberNavController())
                 question = question[currentQuestion].question,
                 options = question[currentQuestion].options,
                 onAnswerClicked = {
-                    nextQuestion()
+                    calculateScore(it)
                 }
             )
         }

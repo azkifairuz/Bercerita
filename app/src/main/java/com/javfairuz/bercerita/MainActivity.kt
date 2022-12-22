@@ -24,10 +24,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.javfairuz.bercerita.question.PageQuestion
+import com.javfairuz.bercerita.resultTest.PageResultTest
 import com.javfairuz.bercerita.ui.theme.BerceritaTheme
 
 class MainActivity : ComponentActivity() {
@@ -64,6 +67,21 @@ class MainActivity : ComponentActivity() {
 
                         composable("question"){
                             PageQuestion(navHostController = navController)
+                        }
+
+                        composable(
+                            "result/{score}",
+                            arguments = listOf(
+                                navArgument(
+                                    name = "score"
+                                ) {
+                                    NavType.IntType
+                                }
+                            )
+                        ){
+                            PageResultTest(
+                                navHostController = navController
+                            )
                         }
                     }
                 }
