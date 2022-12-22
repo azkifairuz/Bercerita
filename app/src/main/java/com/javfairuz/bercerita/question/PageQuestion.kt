@@ -1,20 +1,14 @@
 package com.javfairuz.bercerita.question
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.runtime.Composable
@@ -27,21 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.javfairuz.bercerita.HasilTest
-import com.javfairuz.bercerita.Question1
-import com.javfairuz.bercerita.Question10
-import com.javfairuz.bercerita.Question11
-import com.javfairuz.bercerita.Question12
-import com.javfairuz.bercerita.Question13
-import com.javfairuz.bercerita.Question14
-import com.javfairuz.bercerita.Question2
-import com.javfairuz.bercerita.Question3
-import com.javfairuz.bercerita.Question4
-import com.javfairuz.bercerita.Question5
-import com.javfairuz.bercerita.Question6
-import com.javfairuz.bercerita.Question7
-import com.javfairuz.bercerita.Question8
-import com.javfairuz.bercerita.Question9
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -84,7 +63,7 @@ fun PageQuestion(navHostController: NavHostController = rememberNavController())
             QuestionContent(
                 question = question[currentQuestion].question,
                 options = question[currentQuestion].options,
-                onNext = {
+                onAnswerClicked = {
                     nextQuestion()
                 }
             )
