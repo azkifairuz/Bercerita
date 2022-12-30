@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,9 +33,9 @@ fun PageResultTest(navHostController: NavHostController= rememberNavController()
     fun calculate():String{
         if(score <= 14) return "Normal"
         if(score in 15..18) return "Ringan"
-        if(score in 19..26) return "Sedang"
-
-        return "Berat"
+        if(score in 19..25) return "Sedang"
+        if(score in 26..33) return "Berat"
+        return "Sangat Berat"
     }
 
     LaunchedEffect(key1 = navHostController, block = {
@@ -51,7 +52,7 @@ fun PageResultTest(navHostController: NavHostController= rememberNavController()
 
 
 
-        Text(text = "tingkat stress anda adalah $tingkatStres")
+        Text(text = "Tingkat stress anda  $tingkatStres", style = MaterialTheme.typography.h1 )
 
 
         Text("$score")

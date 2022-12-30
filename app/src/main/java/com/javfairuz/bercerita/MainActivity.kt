@@ -142,8 +142,7 @@ fun MainPage(navHostController: NavHostController = rememberNavController()) {
         modifier = Modifier
             .fillMaxSize()
             .fillMaxHeight()
-            .padding(horizontal = 25.dp),
-        verticalArrangement = Arrangement.Center
+            .padding(horizontal = 25.dp, vertical = 20.dp),
     ) {
         Text(text = stringResource(id = R.string.Header), style = MaterialTheme.typography.h1, fontSize = 30.sp)
         Text(
@@ -164,7 +163,7 @@ fun MainPage(navHostController: NavHostController = rememberNavController()) {
         }
         Spacer(modifier = Modifier.padding(10.dp))
         Text(
-            text = "Baca Panduan Pengisiannya, yul!",
+            text = "Baca Panduan Pengisiannya, yuk!",
             style = MaterialTheme.typography.h1,
             fontSize = 18.sp
         )

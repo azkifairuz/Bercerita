@@ -1,13 +1,19 @@
 package com.javfairuz.bercerita
 
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,55 +36,147 @@ fun RegisterScreen(
     var email by remember {
         mutableStateOf(TextFieldValue(""))
     }
-    fun validateRegister(){
-        if(username.text != "" && email.text != "" && password.text != ""){
+
+    fun validateRegister() {
+        if (username.text != "" && email.text != "" && password.text != "") {
             navHostController.navigate("myapp")
-        }else(
-                Toast.makeText(context , "field tidak boleh kosong",Toast.LENGTH_SHORT).show()
-        )
+        } else (
+                Toast.makeText(context, "field tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                )
     }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Scaffold(modifier = Modifier.padding(20.dp),
+        topBar = {
+            IconButton(onClick = { navHostController.navigate("login") }) {
+                Icon(imageVector = Icons.Default.KeyboardArrowLeft, contentDescription = "")
+            }
+        }
     ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp),
+        ) {
 
-        Text(
-            text = "Register",
-            style = MaterialTheme.typography.h1,
-            fontSize = 50.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.padding(20.dp))
-        OutlinedTextField(
-            value = username,
-            onValueChange = { username = it },
-            label = { Text(text = "Username") },
-            placeholder = { Text(text = "Masukan Username anda") })
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text(text = "Email") },
-            placeholder = { Text(text = "Masukan Email anda") })
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text(text = "Password") },
-            placeholder = { Text(text = "Masukan Password anda") })
-        Spacer(modifier = Modifier.padding(20.dp))
 
-        Text(
-            text = "Sudah Punya Akun? Masuk",
-            Modifier.clickable {
-                navHostController.navigate("login")
-            })
-        Spacer(modifier = Modifier.padding(10.dp))
+            Text(
+                text = "Daftar",
+                style = MaterialTheme.typography.h1,
+                fontSize = 32.sp,
+                fontWeight = FontWeight.W700,
+                textAlign = TextAlign.Start,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Row( modifier = Modifier) {
+                Text(
+                    text = "Sudah Punya Akun?",
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.body1
+                )
+                Text(
+                    text = "Login",
+                    modifier = Modifier.clickable { navHostController.navigate("login") },
+                    color = Color.Blue,
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.body1
+                )
+            }
+            Spacer(modifier = Modifier.padding(20.dp))
 
-        Button(onClick = {validateRegister() }) {
-            Text(text = "Register")
+            Text(
+                text = "Email",
+                textAlign = TextAlign.Start,
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.body1
+            )
+            Spacer(modifier = Modifier.padding(8.dp))
+            TextField(
+                value = username,
+                modifier = Modifier.fillMaxWidth(),
+                onValueChange = { username = it },
+                placeholder = { Text(text = "Masukan Ussername  anda") },
+                shape = RoundedCornerShape(8.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                )
+            )
+            Spacer(modifier = Modifier.padding(16.dp))
+
+            Text(
+                text = "Username",
+                textAlign = TextAlign.Start,
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.body1
+            )
+
+            Spacer(modifier = Modifier.padding(8.dp))
+
+            TextField(
+                value = email,
+                modifier = Modifier.fillMaxWidth(),
+                onValueChange = { email = it },
+                placeholder = { Text(text = "Masukan Email  anda") },
+                shape = RoundedCornerShape(8.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                )
+            )
+
+            Spacer(modifier = Modifier.padding(16.dp))
+
+            Text(
+                text = "Password",
+                textAlign = TextAlign.Start,
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.body1
+            )
+            Spacer(modifier = Modifier.padding(8.dp))
+            TextField(
+                value = password,
+                modifier = Modifier.fillMaxWidth(),
+                onValueChange = { password = it },
+                placeholder = { Text(text = "Masukan Password anda") },
+                shape = RoundedCornerShape(8.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                )
+            )
+
+            Spacer(modifier = Modifier.padding(20.dp))
+
+            Button(
+                onClick = { validateRegister() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(49.dp),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Text(text = "Masuk", style = MaterialTheme.typography.button, fontSize = 16.sp)
+            }
+
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                text = "Atau",
+                textAlign = TextAlign.Center
+            )
+            Button(
+                onClick = { validateRegister() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(49.dp),
+                shape = RoundedCornerShape(8.dp),
+                border = BorderStroke(2.dp, color = MaterialTheme.colors.primary),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.White
+                )
+            ) {
+                Text(text = "Registrasi", style = MaterialTheme.typography.button, fontSize = 16.sp)
+            }
+
         }
     }
 }
