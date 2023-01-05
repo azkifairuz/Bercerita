@@ -1,29 +1,19 @@
-package com.javfairuz.bercerita
+package com.javfairuz.bercerita.signup
 
-import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.AbsoluteCutCornerShape
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight.Companion.W700
-import androidx.compose.ui.text.font.FontWeight.Companion.W900
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,12 +21,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.javfairuz.bercerita.ui.theme.Shapes
-
+import com.javfairuz.bercerita.route.Graph
 
 @Composable
-fun LoginScreen(
-    navHostController: NavHostController = rememberNavController()
+fun RegisterScreen(
+    navHostController: NavHostController = rememberNavController(),
+    onSignUp : (nama:String, email:String, pass:String) -> Unit = {nama,email,pass -> }
 ) {
     val context = LocalContext.current
     var username by remember {
@@ -45,19 +35,21 @@ fun LoginScreen(
     var password by remember {
         mutableStateOf(TextFieldValue(""))
     }
+    var email by remember {
+        mutableStateOf(TextFieldValue(""))
+    }
 
-    fun validateLogin() {
-        if (username.text == "azki") {
-            navHostController.navigate("myapp") {
-                popUpTo("login") { inclusive = true }
-            }
-        } else {
-            Toast.makeText(context, "Username salah", Toast.LENGTH_SHORT).show()
-        }
+    fun validateRegister() {
+        if (username.text != "" && email.text != "" && password.text != "") {
+            onSignUp(username.text.trim(),email.text.trim(), password.text.trim())
+
+        } else (
+                Toast.makeText(context, "field tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                )
     }
     Scaffold(modifier = Modifier.padding(20.dp),
         topBar = {
-            IconButton(onClick = { navHostController.navigate("onboarding") }) {
+            IconButton(onClick = { navHostController.navigate("login") }) {
                 Icon(imageVector = Icons.Default.KeyboardArrowLeft, contentDescription = "")
             }
         }
@@ -70,13 +62,27 @@ fun LoginScreen(
 
 
             Text(
-                text = "Masuk",
+                text = "Daftar",
                 style = MaterialTheme.typography.h1,
                 fontSize = 32.sp,
-                fontWeight = W700,
+                fontWeight = FontWeight.W700,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth()
             )
+            Row( modifier = Modifier) {
+                Text(
+                    text = "Sudah Punya Akun?",
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.body1
+                )
+                Text(
+                    text = "Login",
+                    modifier = Modifier.clickable { navHostController.navigate(Graph.AUTH) },
+                    color = Color.Blue,
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.body1
+                )
+            }
             Spacer(modifier = Modifier.padding(20.dp))
 
             Text(
@@ -98,6 +104,30 @@ fun LoginScreen(
                 )
             )
             Spacer(modifier = Modifier.padding(16.dp))
+
+            Text(
+                text = "Email",
+                textAlign = TextAlign.Start,
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.body1
+            )
+
+            Spacer(modifier = Modifier.padding(8.dp))
+
+            TextField(
+                value = email,
+                modifier = Modifier.fillMaxWidth(),
+                onValueChange = { email = it },
+                placeholder = { Text(text = "Masukan Email  anda") },
+                shape = RoundedCornerShape(8.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                )
+            )
+
+            Spacer(modifier = Modifier.padding(16.dp))
+
             Text(
                 text = "Password",
                 textAlign = TextAlign.Start,
@@ -120,7 +150,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.padding(20.dp))
 
             Button(
-                onClick = { validateLogin() },
+                onClick = { validateRegister() },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(49.dp),
@@ -137,7 +167,7 @@ fun LoginScreen(
                 textAlign = TextAlign.Center
             )
             Button(
-                onClick = { navHostController.navigate("register") },
+                onClick = { validateRegister() },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(49.dp),
@@ -147,16 +177,15 @@ fun LoginScreen(
                     backgroundColor = Color.White
                 )
             ) {
-                Text(text = "Registrasi", style = MaterialTheme.typography.button, fontSize = 16.sp)
+                Text(text = "Login", style = MaterialTheme.typography.button, fontSize = 16.sp)
             }
 
         }
     }
-
 }
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun PreviewLogin() {
-    LoginScreen()
+fun PreviewRegister() {
+    RegisterScreen()
 }

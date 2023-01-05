@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "279210021878",
+    "project_id": "bercerita-5abb7",
+    "storage_bucket": "bercerita-5abb7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279210021878:android:1def74ba08403a1a192dd7",
+        "android_client_info": {
+          "package_name": "com.javfairuz.bercerita"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279210021878-ul769hq90cdll3ghkmb8tlb0jkl7qqjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjSSG8EQMgArQZs5e4PvDasmPyU-ZlhFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279210021878-ul769hq90cdll3ghkmb8tlb0jkl7qqjk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
