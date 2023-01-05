@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.javfairuz.bercerita.route.Graph
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -59,7 +60,7 @@ fun PageQuestion(navHostController: NavHostController = rememberNavController())
 
 
     Scaffold(modifier = Modifier.padding(horizontal = 20.dp), topBar = {
-        IconButton(onClick = { navHostController.navigate("myapp") }) {
+        IconButton(onClick = { navHostController.navigate(Graph.HOME) }) {
             Icon(
                 imageVector = Icons.Default.KeyboardArrowLeft,
                 contentDescription = "",

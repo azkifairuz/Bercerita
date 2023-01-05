@@ -2,4 +2,8 @@
     <string name="app_name">Bercerita</string>
     <string name="Header">Tes Tingkat Stres</string>
     <string name="Sub">Tes ini bisa mengukur tingkat stres dalam dirimu. Hasil dari tes ini akan sangat membantu kamu mengetahui keadaan kesehatan mentalmu saat ini</string>
+    <string name="text1">tuangkan segala isi hati</string>
+    <string name="text2">lakukan terapi</string>
+    <string name="text3"> and be better </string>
+
 </resources>

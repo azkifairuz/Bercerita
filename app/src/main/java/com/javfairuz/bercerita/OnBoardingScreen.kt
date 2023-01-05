@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.javfairuz.bercerita.route.Graph
 import com.javfairuz.bercerita.ui.theme.Shapes
 import kotlinx.coroutines.launch
 
@@ -60,7 +62,7 @@ fun OnBoardingScreen(
             ) { page ->
                 OnBoardingItem(items = items[page])
             }
-            BottomSection(size = items.size, index = state.currentPage, onNextClick = {navHostController.navigate("login")})
+            BottomSection(size = items.size, index = state.currentPage, onNextClick = {navHostController.navigate(Graph.AUTH)})
 
         }
 
@@ -87,13 +89,12 @@ fun OnBoardingItem(
         )
 
         Text(
-            text = items.title,
+            text = stringResource(id = items.title),
             fontSize = 24.sp,
             style = MaterialTheme.typography.body1,
             fontWeight = FontWeight.Bold
         )
 
-        Text(text = items.desc)
     }
 }
 
@@ -107,16 +108,18 @@ fun BottomSection(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(12.dp)
+            .padding(horizontal = 12.dp, vertical = 1.dp)
 
     ) {
         Indicators(size = size, index = index)
-        Spacer(modifier = Modifier.padding(50.dp))
+        Spacer(modifier = Modifier.padding(60.dp))
         //button
         if (index == 2) {
             Button(
                 onClick =  onNextClick,
-                modifier = Modifier.align(Alignment.Center).width(150.dp),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .width(150.dp),
                 shape = RoundedCornerShape(20.dp)
 
                 ) {
