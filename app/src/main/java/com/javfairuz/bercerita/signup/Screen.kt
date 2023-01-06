@@ -1,5 +1,6 @@
 package com.javfairuz.bercerita.signup
 
+
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -7,18 +8,25 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.CornerRadius.Companion.Zero
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpSize.Companion.Zero
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.javfairuz.bercerita.route.Graph
@@ -26,7 +34,7 @@ import com.javfairuz.bercerita.route.Graph
 @Composable
 fun RegisterScreen(
     navHostController: NavHostController = rememberNavController(),
-    onSignUp : (nama:String, email:String, pass:String) -> Unit = {nama,email,pass -> }
+    onSignUp: (nama: String, email: String, pass: String) -> Unit = { nama, email, pass -> }
 ) {
     val context = LocalContext.current
     var username by remember {
@@ -39,21 +47,21 @@ fun RegisterScreen(
         mutableStateOf(TextFieldValue(""))
     }
 
+
+
+
+
     fun validateRegister() {
         if (username.text != "" && email.text != "" && password.text != "") {
-            onSignUp(username.text.trim(),email.text.trim(), password.text.trim())
+            onSignUp(username.text.trim(), email.text.trim(), password.text.trim())
 
-        } else (
-                Toast.makeText(context, "field tidak boleh kosong", Toast.LENGTH_SHORT).show()
-                )
+        } else (Toast.makeText(context, "field tidak boleh kosong", Toast.LENGTH_SHORT).show())
     }
-    Scaffold(modifier = Modifier.padding(20.dp),
-        topBar = {
-            IconButton(onClick = { navHostController.navigate("login") }) {
-                Icon(imageVector = Icons.Default.KeyboardArrowLeft, contentDescription = "")
-            }
+    Scaffold(modifier = Modifier.padding(20.dp), topBar = {
+        IconButton(onClick = { navHostController.navigate("login") }) {
+            Icon(imageVector = Icons.Default.KeyboardArrowLeft, contentDescription = "")
         }
-    ) {
+    }) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -69,7 +77,7 @@ fun RegisterScreen(
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth()
             )
-            Row( modifier = Modifier) {
+            Row(modifier = Modifier) {
                 Text(
                     text = "Sudah Punya Akun?",
                     textAlign = TextAlign.Start,
@@ -92,6 +100,8 @@ fun RegisterScreen(
                 style = MaterialTheme.typography.body1
             )
             Spacer(modifier = Modifier.padding(8.dp))
+
+
             TextField(
                 value = username,
                 modifier = Modifier.fillMaxWidth(),
@@ -103,7 +113,12 @@ fun RegisterScreen(
                     unfocusedIndicatorColor = Color.Transparent
                 )
             )
-            Spacer(modifier = Modifier.padding(16.dp))
+
+            Spacer(modifier = Modifier.padding(8.dp))
+
+
+
+
 
             Text(
                 text = "Email",

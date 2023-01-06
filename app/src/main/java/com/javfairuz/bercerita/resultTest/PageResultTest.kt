@@ -34,8 +34,7 @@ fun PageResultTest(navHostController: NavHostController= rememberNavController()
         if(score <= 14) return "Normal"
         if(score in 15..18) return "Ringan"
         if(score in 19..25) return "Sedang"
-        if(score in 26..33) return "Berat"
-        return "Sangat Berat"
+        return "Berat"
     }
 
     LaunchedEffect(key1 = navHostController, block = {
@@ -54,8 +53,6 @@ fun PageResultTest(navHostController: NavHostController= rememberNavController()
 
         Text(text = "Tingkat stress anda  $tingkatStres", style = MaterialTheme.typography.h1 )
 
-
-        Text("$score")
     }
 }
 

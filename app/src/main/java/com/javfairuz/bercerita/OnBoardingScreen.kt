@@ -139,8 +139,8 @@ fun TopSection(navHostController: NavHostController = rememberNavController()) {
     {
         TextButton(
             onClick = {
-                navHostController.navigate("login") {
-                    popUpTo("OnBoarding")
+                navHostController.navigate(Graph.AUTH) {
+                    popUpTo(Graph.ONBOARDING)
                 }
             },
 

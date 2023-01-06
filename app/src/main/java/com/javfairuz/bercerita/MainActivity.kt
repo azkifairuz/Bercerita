@@ -33,15 +33,14 @@ import androidx.navigation.navArgument
 import com.javfairuz.bercerita.question.PageQuestion
 import com.javfairuz.bercerita.resultTest.PageResultTest
 import com.javfairuz.bercerita.route.RootNav
-import com.javfairuz.bercerita.signin.LoginViewModel
-import com.javfairuz.bercerita.signup.signupViewModel
 import com.javfairuz.bercerita.ui.theme.BerceritaTheme
+import com.javfairuz.bercerita.viewmodel.AppViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var signupViewModel: signupViewModel = ViewModelProvider(this)[signupViewModel::class.java]
-        var signinViewModel: LoginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+       var appViewModel: AppViewModel = ViewModelProvider(this)[AppViewModel::class.java]
+
         setContent {
             BerceritaTheme {
 
@@ -51,7 +50,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    RootNav(navController = rememberNavController(),signupViewModel,signinViewModel)
+                    RootNav(navController = rememberNavController(),appViewModel)
 
                 }
             }

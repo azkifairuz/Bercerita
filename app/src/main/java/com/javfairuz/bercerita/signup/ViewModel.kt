@@ -10,26 +10,26 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 
-class signupViewModel: ViewModel(){
-
-    private  var auth: FirebaseAuth = FirebaseAuth.getInstance()
-
-
-    fun RegisterUser(username: String , email: String,pass: String,callback: (String,Boolean) -> Unit){
-        auth.createUserWithEmailAndPassword(email,pass)
-            .addOnCompleteListener{
-
-                if (it.isSuccessful){
-                    val user = auth.currentUser
-                    val profilChange = userProfileChangeRequest {
-                        displayName = username
-                    }
-                    callback("berhasil",true)
-                    user!!.updateProfile(profilChange)
-                }else{
-                    callback("${it.exception?.message}",false)
-                }
-
-            }
-    }
-}
+//class signupViewModel: ViewModel(){
+//
+//    private  var auth: FirebaseAuth = FirebaseAuth.getInstance()
+//
+//
+//    fun RegisterUser(username: String , email: String,pass: String,callback: (String,Boolean) -> Unit){
+//        auth.createUserWithEmailAndPassword(email,pass)
+//            .addOnCompleteListener{
+//
+//                if (it.isSuccessful){
+//                    val user = auth.currentUser
+//                    val profilChange = userProfileChangeRequest {
+//                        displayName = username
+//                    }
+//                    callback("berhasil",true)
+//                    user!!.updateProfile(profilChange)
+//                }else{
+//                    callback("${it.exception?.message}",false)
+//                }
+//
+//            }
+//    }
+//}

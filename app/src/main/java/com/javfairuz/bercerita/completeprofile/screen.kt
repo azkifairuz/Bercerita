@@ -3,6 +3,7 @@ package com.javfairuz.bercerita.completeprofile
 import android.widget.Space
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -42,12 +43,17 @@ fun CompleteProfileScreen() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(20.dp,40.dp),
         Arrangement.Top,
         Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Complete Profile", style = MaterialTheme.typography.h1, fontSize = 50.sp, fontWeight = FontWeight.Bold )
+        Text(
+            text = "Complete Profile",
+            style = MaterialTheme.typography.h1,
+            fontSize = 50.sp,
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.padding(10.dp))
         Text(text = "Kami Memerlukan data ini untuk  survey kami", textAlign = TextAlign.Center)
         Text(text = "ps : universitas tidak wajib")
@@ -101,6 +107,9 @@ fun CompleteProfileScreen() {
         }
 
         Spacer(modifier = Modifier.padding(10.dp))
+        Button(onClick = { /*TODO*/ }, modifier = Modifier.padding(vertical = 5.dp, horizontal = 10.dp), shape = RoundedCornerShape(50.dp) ) {
+            Text(text = "submit")
+        }
     }
 }
 
