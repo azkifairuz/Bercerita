@@ -20,9 +20,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun CompleteProfileScreen() {
+fun CompleteProfileScreen(
+    navHostController: NavHostController = rememberNavController(),
+    onSubmit:(univ:String,semester:String) -> Unit = {univ,semester->}
+) {
 
     var university by remember {
         mutableStateOf("unknown")
@@ -39,11 +44,13 @@ fun CompleteProfileScreen() {
 
     val icon = if (mExpanded) Icons.Filled.KeyboardArrowUp
     else Icons.Filled.KeyboardArrowDown
-
+    fun addDataUser(){
+        onSubmit(university,selectedSemester)
+    }
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(20.dp,40.dp),
+            .padding(20.dp, 40.dp),
         Arrangement.Top,
         Alignment.CenterHorizontally
     ) {
@@ -51,7 +58,7 @@ fun CompleteProfileScreen() {
         Text(
             text = "Complete Profile",
             style = MaterialTheme.typography.h1,
-            fontSize = 50.sp,
+            fontSize = 40.sp,
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.padding(10.dp))
@@ -69,6 +76,7 @@ fun CompleteProfileScreen() {
         Spacer(modifier = Modifier.padding(20.dp))
         OutlinedTextField(
             value = selectedSemester,
+            readOnly = true,
             onValueChange = { },
             modifier = Modifier
                 .fillMaxWidth()
@@ -107,8 +115,14 @@ fun CompleteProfileScreen() {
         }
 
         Spacer(modifier = Modifier.padding(10.dp))
-        Button(onClick = { /*TODO*/ }, modifier = Modifier.padding(vertical = 5.dp, horizontal = 10.dp), shape = RoundedCornerShape(50.dp) ) {
-            Text(text = "submit")
+        Button(
+            onClick = { addDataUser() },
+            modifier = Modifier
+                .padding(vertical = 5.dp, horizontal = 10.dp)
+                .width(150.dp),
+            shape = RoundedCornerShape(50.dp)
+        ) {
+            Text(text = "submit", style = MaterialTheme.typography.button)
         }
     }
 }

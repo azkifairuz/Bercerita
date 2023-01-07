@@ -82,6 +82,7 @@ fun PageQuestion(navHostController: NavHostController = rememberNavController())
                     calculateScore(it)
                 }
             )
+
         }
 
     }

@@ -57,6 +57,7 @@ fun QuestionContent(
                 onClick = { onAnswerClicked(it) },
                 elevation = 10.dp,
             ) {
+
                 Column(Modifier.padding(15.dp), verticalArrangement = Arrangement.Center) {
                     Text(text = it.answer, style = MaterialTheme.typography.subtitle1)
                 }

@@ -45,7 +45,9 @@ fun BottomApp(navHostController: NavHostController) {
 
         val bottomBarDestination = screen.any { it.screenRoute == currentRoute?.route }
         if (bottomBarDestination) {
-            BottomNavigation() {
+            BottomNavigation(
+                backgroundColor = Color.White
+            ) {
                 screen.forEach { screens ->
                     AddItem(
                         screen = screens,
@@ -78,7 +80,8 @@ fun RowScope.AddItem(
         selected = currentDestination?.hierarchy?.any {
             it.route == screen.screenRoute
         } == true,
-        unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
+        selectedContentColor = MaterialTheme.colors.primary,
+        unselectedContentColor = MaterialTheme.colors.primary.copy(alpha = ContentAlpha.disabled),
         onClick = {
             navController.navigate(screen.screenRoute) {
                 popUpTo(navController.graph.findStartDestination().id)

@@ -12,9 +12,11 @@ import com.javfairuz.bercerita.home.ProfileScreen
 import com.javfairuz.bercerita.question.PageQuestion
 import com.javfairuz.bercerita.question.question
 import com.javfairuz.bercerita.resultTest.PageResultTest
+import com.javfairuz.bercerita.viewmodel.AppViewModel
 
 @Composable
-fun HomeNavGraph(navController: NavHostController) {
+fun HomeNavGraph(navController: NavHostController,
+                 viewModel: AppViewModel = AppViewModel()) {
     NavHost(
         navController = navController,
         route = Graph.HOME,

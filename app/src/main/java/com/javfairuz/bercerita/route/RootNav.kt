@@ -15,6 +15,7 @@ import com.google.firebase.ktx.Firebase
 
 import com.javfairuz.bercerita.OnBoardingScreen
 import com.javfairuz.bercerita.PageBercerita.BerceritaScreen
+import com.javfairuz.bercerita.completeprofile.CompleteProfileScreen
 import com.javfairuz.bercerita.home.myApp
 import com.javfairuz.bercerita.question.PageQuestion
 import com.javfairuz.bercerita.question.QuestionContent
@@ -71,12 +72,31 @@ fun RootNav(
                     pass
                 ) { massage, success ->
                     if (success) {
-                        navController.navigate(Graph.HOME)
+                        navController.navigate(Graph.COMPLETE)
                     } else {
                         Toast.makeText(context, massage, Toast.LENGTH_SHORT).show()
                     }
                 }
             }, navHostController = navController)
+        }
+        composable(Graph.COMPLETE){
+            var context = LocalContext.current
+            CompleteProfileScreen(
+                navHostController = navController,
+                onSubmit = {univ,semester ->
+                    viewModel.addUserInfo(
+                        univ,
+                        semester
+                    ){ massage, succes ->
+                        if (succes){
+                            navController.navigate(Graph.HOME)
+                        }else{
+                            Toast.makeText(context, massage, Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+                }
+            )
         }
     }
 
@@ -87,9 +107,10 @@ object Graph {
     const val ROOT = "root_graph"
     const val ONBOARDING = "onboarding"
     const val QUESTION = "question"
-    const val RESULT = "result"
     const val AUTH = "auth"
     const val SIGNUP = "signup"
     const val BERCERITA = "bercerita"
+    const val COMPLETE = "complete"
+
 
 }
