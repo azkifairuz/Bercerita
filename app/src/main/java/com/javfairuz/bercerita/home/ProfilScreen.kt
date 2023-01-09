@@ -9,6 +9,7 @@ import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role.Companion.Image
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,11 +30,16 @@ import com.javfairuz.bercerita.R
 @Composable
 fun ProfileScreen(
     name: String = "unknown",
+    email: String = "unknown@gmail.com",
     universitas: String = "unknown",
     semester: String = "1"
 ) {
     var nama by remember {
         mutableStateOf(name)
+    }
+
+    var email by remember {
+        mutableStateOf(email)
     }
     var university by remember {
         mutableStateOf(universitas)
@@ -47,27 +54,63 @@ fun ProfileScreen(
     ) {
         Card(
             modifier = Modifier.padding(10.dp),
-            backgroundColor = Color(0xFFA4BE7B),
             elevation = 10.dp,
-            shape = RoundedCornerShape(20)
+            shape = RoundedCornerShape(5)
         ) {
-            Column(modifier = Modifier.padding(10.dp)) {
-                Row(
-                    modifier = Modifier
-                        .padding(5.dp)
-                        .fillMaxWidth(), horizontalArrangement = Arrangement.Center
+            Column() {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        backgroundColor =  Color(0xFFA4BE7B)
+                    ) {
+                      Column(modifier = Modifier.padding(20.dp).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                          Text(
+                              text = nama,
+                              style = MaterialTheme.typography.body1,
+                              fontSize = 30.sp,
+                              fontWeight = FontWeight.Bold
+                          )
+                          Text(
+                              text = email,
+                              style = MaterialTheme.typography.h1,
+                              fontSize = 17.sp
+                          )
+                      }
+                    }
+
+                }
+                Spacer(modifier = Modifier.padding(5.dp))
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(20.dp)
                 ) {
                     Text(
-                        text = nama,
-                        style = MaterialTheme.typography.body1,
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.Bold
+                        text = "Universitas",
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.subtitle1
                     )
-                }
-                Row() {
+                    Spacer(modifier = Modifier.padding(5.dp))
+
                     Text(
-                        text = "Adalah mahasiswa dari kampus $university dan sekarang menginjak semester $tingkat",
-                        textAlign = TextAlign.Center,
+                        text = university,
+                        fontWeight = FontWeight.Light,
+                        style = MaterialTheme.typography.subtitle1
+                    )
+
+                    Spacer(modifier = Modifier.padding(10.dp))
+
+                    Text(
+                        text = "Semester",
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.subtitle1
+                    )
+                    Spacer(modifier = Modifier.padding(5.dp))
+
+                    Text(
+                        text = tingkat,
+                        fontWeight = FontWeight.Light,
                         style = MaterialTheme.typography.subtitle1
                     )
                 }

@@ -23,7 +23,7 @@ fun HomeNavGraph(navController: NavHostController,
         startDestination = BottomNavItem.Home.screenRoute
     ) {
         composable(route = BottomNavItem.Profile.screenRoute) {
-            ProfileScreen()
+            ProfileScreen(name = viewModel.username.orEmpty(),viewModel.email.orEmpty())
         }
         composable(route = BottomNavItem.Home.screenRoute) {
             Home(navController)

@@ -8,10 +8,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.javfairuz.bercerita.completeprofile.ProfileUser
+import com.javfairuz.bercerita.home.Post
+import kotlinx.coroutines.flow.callbackFlow
+import org.w3c.dom.Document
 
 class AppViewModel : ViewModel(){
     private  var auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -67,30 +71,14 @@ class AppViewModel : ViewModel(){
     }
 
     //profile
-    data class Profile(
-        val nama: String,
-        val universitas: String,
-        val semester: String,
-    )
-    private val _currentUserProfile = MutableLiveData<Profile>()
-    val currentUserProfile: LiveData<Profile>
-        get() = _currentUserProfile
-    fun getProfile(){
 
-        db.collection("users").document(uid.orEmpty())
-            .get()
-            .addOnSuccessListener { documentSnap ->
-                if (documentSnap != null){
-                    Log.d("T", "DocumentSnapshot data:${documentSnap.data}")
-                    val users = documentSnap.toObject<Profile>()
-                }else{
-                    Log.d("T","no such doc")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("T", "Error getting documents.", exception)
-            }
-    }
+
+
+    var username = auth.currentUser?.displayName
+    var email = auth.currentUser?.email
+
+
+
 
 
 

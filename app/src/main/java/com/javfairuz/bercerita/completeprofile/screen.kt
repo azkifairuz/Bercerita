@@ -56,14 +56,14 @@ fun CompleteProfileScreen(
     ) {
 
         Text(
-            text = "Complete Profile",
+            text = "Biodata",
             style = MaterialTheme.typography.h1,
             fontSize = 40.sp,
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.padding(10.dp))
         Text(text = "Kami Memerlukan data ini untuk  survey kami", textAlign = TextAlign.Center)
-        Text(text = "ps : universitas tidak wajib")
+        Spacer(modifier = Modifier.padding(10.dp))
         OutlinedTextField(
             value = university,
             onValueChange = { university = it },
