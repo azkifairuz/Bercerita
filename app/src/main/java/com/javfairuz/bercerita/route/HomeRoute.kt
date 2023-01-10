@@ -15,15 +15,23 @@ import com.javfairuz.bercerita.resultTest.PageResultTest
 import com.javfairuz.bercerita.viewmodel.AppViewModel
 
 @Composable
-fun HomeNavGraph(navController: NavHostController,
-                 viewModel: AppViewModel = AppViewModel()) {
+fun HomeNavGraph(
+    navController: NavHostController,
+    viewModel: AppViewModel = AppViewModel()
+) {
     NavHost(
         navController = navController,
         route = Graph.HOME,
         startDestination = BottomNavItem.Home.screenRoute
     ) {
         composable(route = BottomNavItem.Profile.screenRoute) {
-            ProfileScreen(name = viewModel.username.orEmpty(),viewModel.email.orEmpty())
+            val getData = viewModel.state.value
+            ProfileScreen(
+                name = getData.nama,
+                email = viewModel.email.orEmpty(),
+                universitas = getData.universitas,
+                semester = getData.semester,
+                onLogout = { viewModel.logout() })
         }
         composable(route = BottomNavItem.Home.screenRoute) {
             Home(navController)
@@ -34,7 +42,7 @@ fun HomeNavGraph(navController: NavHostController,
         composable(route = Graph.BERCERITA) {
             BerceritaScreen()
         }
-        composable(route = Graph.QUESTION){
+        composable(route = Graph.QUESTION) {
 
             PageQuestion(navController)
         }
@@ -47,7 +55,7 @@ fun HomeNavGraph(navController: NavHostController,
                     NavType.IntType
                 }
             )
-        ){
+        ) {
             PageResultTest(
                 navHostController = navController
             )

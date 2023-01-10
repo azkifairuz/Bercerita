@@ -1,87 +1,127 @@
 package com.javfairuz.bercerita.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.javfairuz.bercerita.completeprofile.ProfileUser
 import com.javfairuz.bercerita.home.Post
+import com.javfairuz.bercerita.models.DataUser
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import org.w3c.dom.Document
 
-class AppViewModel : ViewModel(){
-    private  var auth: FirebaseAuth = FirebaseAuth.getInstance()
+class AppViewModel : ViewModel() {
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
     private val uid = auth.currentUser?.uid
 
     //user register
-    fun RegisterUser(username: String , email: String,pass: String,callback: (String,Boolean) -> Unit){
-        auth.createUserWithEmailAndPassword(email,pass)
-            .addOnCompleteListener{
+    fun RegisterUser(
+        username: String,
+        email: String,
+        pass: String,
+        callback: (String, Boolean) -> Unit
+    ) {
+        auth.createUserWithEmailAndPassword(email, pass)
+            .addOnCompleteListener {
 
-                if (it.isSuccessful){
+                if (it.isSuccessful) {
                     val user = auth.currentUser
                     val profilChange = userProfileChangeRequest {
                         displayName = username
                     }
-                    callback("berhasil",true)
+                    callback("berhasil", true)
                     user!!.updateProfile(profilChange)
-                }else{
-                    callback("${it.exception?.message}",false)
+                } else {
+                    callback("${it.exception?.message}", false)
                 }
 
             }
     }
+
     //user login
-    fun Login (email:String,pass:String,callback: (String,Boolean) -> Unit){
-        auth.signInWithEmailAndPassword(email,pass)
+    fun Login(email: String, pass: String, callback: (String, Boolean) -> Unit) {
+        auth.signInWithEmailAndPassword(email, pass)
             .addOnCompleteListener {
-                if (it.isSuccessful){
-                    callback("Berhasil Masuk",true)
-                }else{
-                    callback("${it.exception?.message}",false)
+                if (it.isSuccessful) {
+                    callback("Berhasil Masuk", true)
+                } else {
+                    callback("${it.exception?.message}", false)
                 }
             }
 
     }
 
+    val state = mutableStateOf(DataUser())
+    init {
+        getData()
+    }
+    private fun getData(){
+        viewModelScope.launch {
+            state.value = getDataUser()
+        }
+    }
 
     //user info
-    fun addUserInfo(universitas:String,semester:String,callback: (String, Boolean) -> Unit){
+    fun addUserInfo(universitas: String, semester: String, callback: (String, Boolean) -> Unit) {
         val name = auth.currentUser?.displayName
-        val user = ProfileUser(name.orEmpty(),universitas,semester)
+        val user = ProfileUser(name.orEmpty(), universitas, semester)
         db.collection("users")
             .document(uid.orEmpty())
             .set(user)
             .addOnCompleteListener {
-                 if(it.isSuccessful){
-                     callback("succes",true)
-                 }
+                if (it.isSuccessful) {
+                    callback("succes", true)
+                }
             }.addOnFailureListener {
-                callback("fail",false)
+                callback("fail", false)
             }
     }
+    //logout
+    fun logout(){
+        auth.signOut()
+    }
 
-    //profile
 
 
 
-    var username = auth.currentUser?.displayName
+
     var email = auth.currentUser?.email
 
 
+}
 
-
-
-
-
+//profile
+suspend fun getDataUser(): DataUser {
+     val auth: FirebaseAuth = FirebaseAuth.getInstance()
+     val uid = auth.currentUser?.uid
+    val db = FirebaseFirestore.getInstance()
+    var dataUser =  DataUser()
+    try {
+        db.collection("users")
+            .get()
+            .await()
+            .map {
+                val result =  it.toObject(DataUser::class.java)
+                dataUser = result
+            }
+    }catch (e: FirebaseFirestoreException){
+        Log.e("error","$e")
+    }
+    return dataUser
 
 }

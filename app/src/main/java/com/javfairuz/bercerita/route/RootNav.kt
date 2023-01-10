@@ -55,7 +55,14 @@ fun RootNav(
 
         }
         composable(Graph.ONBOARDING) {
-            OnBoardingScreen(navController)
+            var user = Firebase.auth.currentUser
+            var context = LocalContext.current
+            if (user != null){
+                myApp()
+            }else{
+                OnBoardingScreen(navController)
+            }
+
         }
         composable(Graph.QUESTION) {
             PageQuestion(navController)

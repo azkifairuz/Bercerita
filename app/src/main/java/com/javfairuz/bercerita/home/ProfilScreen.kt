@@ -4,10 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Colors
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,18 +23,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.javfairuz.bercerita.R
+import com.javfairuz.bercerita.viewmodel.AppViewModel
 
 @Composable
 fun ProfileScreen(
     name: String = "unknown",
     email: String = "unknown@gmail.com",
     universitas: String = "unknown",
-    semester: String = "1"
+    semester: String = "1",
+    onLogout:() -> Unit = { }
 ) {
+
     var nama by remember {
         mutableStateOf(name)
     }
-
     var email by remember {
         mutableStateOf(email)
     }
@@ -50,7 +49,9 @@ fun ProfileScreen(
     Column(
         modifier = Modifier
             .padding(20.dp)
-            .fillMaxSize(), verticalArrangement = Arrangement.Center
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Card(
             modifier = Modifier.padding(10.dp),
@@ -66,7 +67,9 @@ fun ProfileScreen(
                         modifier = Modifier.fillMaxWidth(),
                         backgroundColor =  Color(0xFFA4BE7B)
                     ) {
-                      Column(modifier = Modifier.padding(20.dp).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                      Column(modifier = Modifier
+                          .padding(20.dp)
+                          .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                           Text(
                               text = nama,
                               style = MaterialTheme.typography.body1,
@@ -84,7 +87,9 @@ fun ProfileScreen(
                 }
                 Spacer(modifier = Modifier.padding(5.dp))
                 Column(
-                    modifier = Modifier.fillMaxWidth().padding(20.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp)
                 ) {
                     Text(
                         text = "Universitas",
@@ -113,8 +118,18 @@ fun ProfileScreen(
                         fontWeight = FontWeight.Light,
                         style = MaterialTheme.typography.subtitle1
                     )
+
                 }
+
+
             }
+
+        }
+        Spacer(modifier = Modifier.padding(10.dp))
+        Button(onClick =  onLogout, modifier = Modifier
+            .width(200.dp)
+            .padding(10.dp), shape = RoundedCornerShape(8.dp) ) {
+                Text(text = "Logout")
         }
     }
 }
