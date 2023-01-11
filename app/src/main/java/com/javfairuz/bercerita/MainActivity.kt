@@ -31,6 +31,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.javfairuz.bercerita.question.PageQuestion
 import com.javfairuz.bercerita.resultTest.PageResultTest
 import com.javfairuz.bercerita.route.RootNav
@@ -43,6 +46,7 @@ class MainActivity : ComponentActivity() {
        var appViewModel: AppViewModel = ViewModelProvider(this)[AppViewModel::class.java]
 
         setContent {
+
             BerceritaTheme {
 
                 // A surface container using the 'background' color from the theme
@@ -51,11 +55,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Scaffold(topBar = {
-                        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text(text ="Bercerita", style = MaterialTheme.typography.h1, fontSize = 30.sp, textAlign = TextAlign.Center)
-                        }
-                    }) {
+                    Column() {
                     RootNav(navController = rememberNavController(),appViewModel)
                     }
 

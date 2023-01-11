@@ -1,6 +1,7 @@
 package com.javfairuz.bercerita.home
 
-import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -8,10 +9,15 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -24,14 +30,28 @@ import com.javfairuz.bercerita.route.HomeNavGraph
 @Composable
 fun myApp(navHostController: NavHostController = rememberNavController()) {
 
-    Scaffold(bottomBar = {
-        BottomApp(navHostController = navHostController)
+    Scaffold(
+        topBar = {
+        TopApp()
 
-    }) {
+        },
+        bottomBar = {
+            BottomApp(navHostController = navHostController)
+
+        }) {
         HomeNavGraph(navController = navHostController)
     }
 }
 
+
+@Composable
+fun TopApp(){
+    TopAppBar(modifier = Modifier.fillMaxWidth(),backgroundColor = Color(0xFFA4BE7B)){
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            Text("Bercerita", textAlign = TextAlign.Center, fontSize = 20.sp)
+        }
+    }
+}
 @Composable
 fun BottomApp(navHostController: NavHostController) {
     val screen = listOf(

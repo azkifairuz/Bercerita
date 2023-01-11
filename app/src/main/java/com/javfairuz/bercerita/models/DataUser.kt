@@ -1,6 +1,6 @@
 package com.javfairuz.bercerita.models
 
-import com.javfairuz.bercerita.completeprofile.ProfileUser
+import com.javfairuz.bercerita.models.ProfileUser
 
 data class DataUser (
     val nama: String = "",

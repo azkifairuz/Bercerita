@@ -77,6 +77,21 @@ fun PreviewQuestionContent() {
                     answer = "Pernah",
                     score = 1,
                     key = "pernah"
+                ),
+                OptionsModel(
+                    answer = "Pernah",
+                    score = 1,
+                    key = "pernah"
+                ),
+                OptionsModel(
+                    answer = "Pernah",
+                    score = 1,
+                    key = "pernah"
+                ),
+                OptionsModel(
+                    answer = "Pernah",
+                    score = 1,
+                    key = "pernah"
                 )
             )
         )

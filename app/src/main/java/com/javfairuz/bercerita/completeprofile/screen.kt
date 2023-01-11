@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.javfairuz.bercerita.route.Graph
 
 @Composable
 fun CompleteProfileScreen(
@@ -46,6 +47,7 @@ fun CompleteProfileScreen(
     else Icons.Filled.KeyboardArrowDown
     fun addDataUser(){
         onSubmit(university,selectedSemester)
+        navHostController.navigate(Graph.HOME)
     }
     Column(
         modifier = Modifier

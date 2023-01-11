@@ -1,6 +1,8 @@
 package com.javfairuz.bercerita.viewmodel
 
 import android.util.Log
+import android.widget.Toast
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,17 +10,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.javfairuz.bercerita.completeprofile.ProfileUser
 import com.javfairuz.bercerita.home.Post
+import com.javfairuz.bercerita.models.DataState
 import com.javfairuz.bercerita.models.DataUser
+import com.javfairuz.bercerita.models.ProfileUser
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -27,7 +29,9 @@ import org.w3c.dom.Document
 class AppViewModel : ViewModel() {
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
-    private val uid = auth.currentUser?.uid
+    val uid = auth.currentUser?.uid
+    val refs =
+        FirebaseDatabase.getInstance("https://bercerita-5abb7-default-rtdb.asia-southeast1.firebasedatabase.app").reference
 
     //user register
     fun RegisterUser(
@@ -66,62 +70,79 @@ class AppViewModel : ViewModel() {
 
     }
 
-    val state = mutableStateOf(DataUser())
+    val state: MutableState<DataState> = mutableStateOf(DataState.Empty)
+
     init {
-        getData()
+        getDataUser()
     }
-    private fun getData(){
-        viewModelScope.launch {
-            state.value = getDataUser()
+
+    //profile
+    fun getDataUser() {
+        val auth: FirebaseAuth = FirebaseAuth.getInstance()
+        val uid = auth.currentUser?.uid.toString()
+        val db = FirebaseDatabase.getInstance("https://bercerita-5abb7-default-rtdb.asia-southeast1.firebasedatabase.app").reference
+        val templist = mutableListOf<DataUser>()
+        state.value = DataState.Loading
+        db.child("users")
+            .child(uid)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val data = snapshot.getValue(DataUser::class.java)
+                    if (data !=null)templist.addAll(listOf(data))
+                    Log.e("ini","$templist")
+                    state.value = DataState.Success(templist)
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    state.value =DataState.Failure(error.message)
+                }
+
+            }
+
+            )
+    }
+
+
+
+
+
+//    private fun getData() {
+//        viewModelScope.launch {
+//            state.value = getDataUser()
+//            Log.e("gatau",state.value.nama)
+//        }
+//    }
+
+fun pushData(universitas: String, semester: String, callback: (String, Boolean) -> Unit) {
+
+    val uid = auth.currentUser?.uid.toString()
+    val name = auth.currentUser?.displayName.toString()
+    val user = ProfileUser(name, universitas, semester)
+
+    if (uid == "") {
+        callback("fail", false)
+    } else {
+        Log.e("cek", "clicked")
+        refs.child("users").child(uid).setValue(user).addOnCompleteListener {
+            Log.e("push data", "succes")
+        }.addOnFailureListener {
+            it.message?.let { it1 -> Log.e("failed", it1) }
+            callback("true", false)
         }
     }
+}
 
-    //user info
-    fun addUserInfo(universitas: String, semester: String, callback: (String, Boolean) -> Unit) {
-        val name = auth.currentUser?.displayName
-        val user = ProfileUser(name.orEmpty(), universitas, semester)
-        db.collection("users")
-            .document(uid.orEmpty())
-            .set(user)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    callback("succes", true)
-                }
-            }.addOnFailureListener {
-                callback("fail", false)
-            }
-    }
-    //logout
-    fun logout(){
-        auth.signOut()
-    }
+//logout
+fun logout(callback: (String, Boolean) -> Unit) {
+    auth.signOut()
+    callback("berhasil logout", true)
+}
 
 
-
-
-
-    var email = auth.currentUser?.email
+var email = auth.currentUser?.email
 
 
 }
 
-//profile
-suspend fun getDataUser(): DataUser {
-     val auth: FirebaseAuth = FirebaseAuth.getInstance()
-     val uid = auth.currentUser?.uid
-    val db = FirebaseFirestore.getInstance()
-    var dataUser =  DataUser()
-    try {
-        db.collection("users")
-            .get()
-            .await()
-            .map {
-                val result =  it.toObject(DataUser::class.java)
-                dataUser = result
-            }
-    }catch (e: FirebaseFirestoreException){
-        Log.e("error","$e")
-    }
-    return dataUser
 
-}

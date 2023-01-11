@@ -91,7 +91,7 @@ fun RootNav(
             CompleteProfileScreen(
                 navHostController = navController,
                 onSubmit = {univ,semester ->
-                    viewModel.addUserInfo(
+                    viewModel.pushData(
                         univ,
                         semester
                     ){ massage, succes ->

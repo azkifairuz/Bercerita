@@ -1,4 +1,4 @@
-package com.javfairuz.bercerita.completeprofile
+package com.javfairuz.bercerita.models
 
 import android.provider.ContactsContract.Profile
 
