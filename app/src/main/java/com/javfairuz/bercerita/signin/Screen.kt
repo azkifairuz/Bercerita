@@ -20,9 +20,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.javfairuz.bercerita.home.BottomApp
+import com.javfairuz.bercerita.home.TopApp
 import com.javfairuz.bercerita.route.Graph
+import com.javfairuz.bercerita.route.HomeNavGraph
+import com.javfairuz.bercerita.route.authNavGraph
 
+@Composable
+fun auth(navHostController: NavHostController = rememberNavController()) {
 
+    Surface(
+     ) {
+        authNavGraph(navController = navHostController)
+    }
+}
 @Composable
 fun LoginScreen(
     navHostController: NavHostController = rememberNavController(),

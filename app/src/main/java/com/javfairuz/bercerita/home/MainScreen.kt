@@ -48,7 +48,7 @@ fun myApp(navHostController: NavHostController = rememberNavController()) {
 fun TopApp(){
     TopAppBar(modifier = Modifier.fillMaxWidth(),backgroundColor = Color(0xFFA4BE7B)){
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text("Bercerita", textAlign = TextAlign.Center, fontSize = 20.sp)
+            Text("Bercerita", textAlign = TextAlign.Center, fontSize = 25.sp)
         }
     }
 }

@@ -88,9 +88,12 @@ class AppViewModel : ViewModel() {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val data = snapshot.getValue(DataUser::class.java)
-                    if (data !=null)templist.addAll(listOf(data))
+                    if (data !=null) {
+                        templist.addAll(listOf(data))
+                        state.value = DataState.Success(templist)
+                    }
                     Log.e("ini","$templist")
-                    state.value = DataState.Success(templist)
+
 
                 }
 

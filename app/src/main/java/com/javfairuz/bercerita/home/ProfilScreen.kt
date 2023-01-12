@@ -1,5 +1,6 @@
 package com.javfairuz.bercerita.home
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,7 +17,11 @@ import androidx.compose.ui.unit.sp
 import com.javfairuz.bercerita.models.DataState
 import com.javfairuz.bercerita.models.DataUser
 import com.javfairuz.bercerita.viewmodel.AppViewModel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun ProfileScreen(
     name: String = "unknown",
@@ -47,17 +52,36 @@ fun ProfileScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Card(
-            modifier = Modifier.padding(10.dp),
+            modifier = Modifier
+                .padding(10.dp)
+                .height(250.dp),
             elevation = 10.dp,
             shape = RoundedCornerShape(5)
         ) {
             when(val result = viewModel.state.value){
                 is DataState.Success ->{
                     SuccesScreen(email = email, dataUser = result.data)
+
                 }
 
                 is DataState.Loading ->{
-                    ProgressDialog()
+                    var isLoaded by remember {  mutableStateOf(false)}
+                    var showProgressBar by remember {mutableStateOf(false)}
+
+                    val coroutineScope  = rememberCoroutineScope()
+
+                    coroutineScope.launch{
+                        if (isLoaded){
+                            delay(5000)
+                            showProgressBar = true
+
+                        }else{
+                            showProgressBar = false
+                        }
+
+                    }
+                    if (showProgressBar == true) ProgressDialog()
+
                 }
 
                 is DataState.Failure ->{
@@ -78,13 +102,15 @@ fun ProfileScreen(
         }
     }
 }
+@SuppressLint("CoroutineCreationDuringComposition")
 @Preview
 @Composable
 fun ProgressDialog(){
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp),
+            .height(250.dp),
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator()
