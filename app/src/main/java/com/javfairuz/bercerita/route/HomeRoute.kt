@@ -2,6 +2,8 @@ package com.javfairuz.bercerita.route
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
@@ -12,6 +14,7 @@ import com.javfairuz.bercerita.home.AboutScreen
 import com.javfairuz.bercerita.home.BottomNavItem
 import com.javfairuz.bercerita.home.Home
 import com.javfairuz.bercerita.home.ProfileScreen
+import com.javfairuz.bercerita.models.DataState
 import com.javfairuz.bercerita.question.PageQuestion
 import com.javfairuz.bercerita.question.question
 import com.javfairuz.bercerita.resultTest.PageResultTest
@@ -20,8 +23,7 @@ import com.javfairuz.bercerita.viewmodel.AppViewModel
 
 @Composable
 fun HomeNavGraph(
-    navController: NavHostController,
-    viewModel: AppViewModel = AppViewModel()
+    navController: NavHostController, viewModel: AppViewModel = AppViewModel()
 ) {
     NavHost(
         navController = navController,
@@ -29,20 +31,29 @@ fun HomeNavGraph(
         startDestination = BottomNavItem.Home.screenRoute
     ) {
         composable(route = BottomNavItem.Profile.screenRoute) {
-
+            val dataState by viewModel.state
+            LaunchedEffect(
+                key1 = viewModel,
+                block = {
+                    viewModel.getDataUser()
+                }
+            )
             val context = LocalContext.current
             ProfileScreen(
-                onLogout = { viewModel.logout(){ massage, success ->
-                    if (success) {
-                        navController.navigate(Graph.ROOT)
-                        Toast.makeText(context, massage, Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(context, massage, Toast.LENGTH_SHORT).show()
+                onLogout = {
+                    viewModel.logout() { massage, success ->
+                        if (success) {
+                            Toast.makeText(context, massage, Toast.LENGTH_SHORT).show()
+                            navController.navigate(Graph.ROOT)
+                        } else {
+                            Toast.makeText(context, massage, Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
-                })
+                },
+                dataState = dataState
+            )
         }
-        composable(route = Graph.ROOT){
+        composable(route = Graph.ROOT) {
             LoginScreen(navHostController = navController)
         }
         composable(route = BottomNavItem.Home.screenRoute) {
@@ -55,18 +66,14 @@ fun HomeNavGraph(
             BerceritaScreen()
         }
         composable(route = Graph.QUESTION) {
-
             PageQuestion(navController)
         }
         composable(
-            "result/{score}",
-            arguments = listOf(
-                navArgument(
-                    name = "score"
-                ) {
-                    NavType.IntType
-                }
-            )
+            "result/{score}", arguments = listOf(navArgument(
+                name = "score"
+            ) {
+                NavType.IntType
+            })
         ) {
             PageResultTest(
                 navHostController = navController

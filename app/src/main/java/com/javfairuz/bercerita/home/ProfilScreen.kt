@@ -21,6 +21,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun ProfileScreen(
@@ -29,7 +30,8 @@ fun ProfileScreen(
     universitas: String = "unknown",
     semester: String = "1",
     onLogout:() -> Unit = { },
-    viewModel: AppViewModel = AppViewModel()
+
+    dataState: DataState = DataState.Empty
 ) {
 
     var nama by remember {
@@ -58,39 +60,23 @@ fun ProfileScreen(
             elevation = 10.dp,
             shape = RoundedCornerShape(5)
         ) {
-            when(val result = viewModel.state.value){
-                is DataState.Success ->{
-                    SuccesScreen(email = email, dataUser = result.data)
-
+            when(val result = dataState){
+                DataState.Empty -> {
+                    Text(text = "kosong")
                 }
-
-                is DataState.Loading ->{
-                    var isLoaded by remember {  mutableStateOf(false)}
-                    var showProgressBar by remember {mutableStateOf(false)}
-
-                    val coroutineScope  = rememberCoroutineScope()
-
-                    coroutineScope.launch{
-                        if (isLoaded){
-                            delay(5000)
-                            showProgressBar = true
-
-                        }else{
-                            showProgressBar = false
-                        }
+                is DataState.Failure -> {
+                    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(text = result.msg, style = MaterialTheme.typography.body1)
 
                     }
-                    if (showProgressBar == true) ProgressDialog()
-
+                }
+                DataState.Loading -> {
+                    ProgressDialog()
+                }
+                is DataState.Success -> {
+                    SuccesScreen(dataUser = result.data,email = email )
                 }
 
-                is DataState.Failure ->{
-                    Text(text = result.msg, style = MaterialTheme.typography.body1)
-                }
-
-                else ->{
-                    Text(text = "Error Loading data")
-                }
             }
 
         }

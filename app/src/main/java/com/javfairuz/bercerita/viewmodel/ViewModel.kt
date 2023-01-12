@@ -72,17 +72,17 @@ class AppViewModel : ViewModel() {
 
     val state: MutableState<DataState> = mutableStateOf(DataState.Empty)
 
-    init {
-        getDataUser()
-    }
+
 
     //profile
     fun getDataUser() {
+        state.value = DataState.Loading
+        Log.e("ini","load")
         val auth: FirebaseAuth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid.toString()
         val db = FirebaseDatabase.getInstance("https://bercerita-5abb7-default-rtdb.asia-southeast1.firebasedatabase.app").reference
         val templist = mutableListOf<DataUser>()
-        state.value = DataState.Loading
+        db.keepSynced(true)
         db.child("users")
             .child(uid)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -91,6 +91,10 @@ class AppViewModel : ViewModel() {
                     if (data !=null) {
                         templist.addAll(listOf(data))
                         state.value = DataState.Success(templist)
+                        Log.e("ini","if")
+                    }else {
+                        Log.e("ini","else")
+                        state.value = DataState.Failure("data error")
                     }
                     Log.e("ini","$templist")
 
@@ -98,6 +102,7 @@ class AppViewModel : ViewModel() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
+                    Log.e("ini","cancel")
                     state.value =DataState.Failure(error.message)
                 }
 
