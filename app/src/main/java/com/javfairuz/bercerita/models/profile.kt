@@ -6,14 +6,13 @@ data class ProfileUser(
     val nama: String,
     val universitas: String,
     val semester: String,
-    val stressMeter: String? = null
+    val stressMeter: String? = ""
     )
 
 fun ProfileUser.toFireStore():Map<String,String>{
     var data: MutableMap<String, String> = mutableMapOf()
-    if(stressMeter !=null){
-        data["stresMeter"]= stressMeter
-    }
+
+    data["stresMeter"]= stressMeter.toString()
     data["Name"] = nama
     data["Universitas"] = universitas
     data["Semester"] = semester

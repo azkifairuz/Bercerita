@@ -37,7 +37,7 @@ fun auth(navHostController: NavHostController = rememberNavController()) {
 @Composable
 fun LoginScreen(
     navHostController: NavHostController = rememberNavController(),
-    onLogin:(email:String,pass:String) -> Unit = {email,pass -> }
+        onLogin:(email:String,pass:String) -> Unit = {email,pass -> }
 ) {
     val context = LocalContext.current
     var email by remember {

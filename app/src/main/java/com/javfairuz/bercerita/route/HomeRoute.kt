@@ -69,15 +69,24 @@ fun HomeNavGraph(
             PageQuestion(navController)
         }
         composable(
-            "result/{score}", arguments = listOf(navArgument(
-                name = "score"
-            ) {
-                NavType.IntType
-            })
-        ) {
-            PageResultTest(
-                navHostController = navController
+            route = "result/{score}",
+            arguments = listOf(
+                navArgument(name = "score") { NavType.IntType }
             )
+        ) {
+            val context = LocalContext.current
+            PageResultTest(
+                navHostController = navController,
+            onSubmit = {stressMeter ->
+                viewModel.pushResult(stressMeter){ massage,success ->
+                    if (success){
+                        Toast.makeText(context, massage, Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(context, massage, Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+            })
         }
     }
 }

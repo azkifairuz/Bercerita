@@ -71,7 +71,7 @@ fun RootNav(
             BerceritaScreen()
         }
         composable(Graph.SIGNUP) {
-            var context = LocalContext.current
+            val context = LocalContext.current
             RegisterScreen(onSignUp = { nama, email, pass ->
                 viewModel.RegisterUser(
                     nama,
@@ -87,7 +87,7 @@ fun RootNav(
             }, navHostController = navController)
         }
         composable(Graph.COMPLETE){
-            var context = LocalContext.current
+            val context = LocalContext.current
             CompleteProfileScreen(
                 navHostController = navController,
                 onSubmit = {univ,semester ->

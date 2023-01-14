@@ -122,6 +122,18 @@ class AppViewModel : ViewModel() {
 //        }
 //    }
 
+fun pushResult(stressMetter:String, callback: (String, Boolean) -> Unit){
+    refs.child("users").child(uid.orEmpty()).child("stressMeter").setValue(stressMetter).addOnCompleteListener {
+        if (it.isSuccessful){
+            callback("berhasil",true)
+            Log.e("pushResult", "pushResult: Berhasi; ", )
+        }
+    }.addOnFailureListener {
+        Log.e("resultFail", "pushResult:${it.message} ", )
+        callback("${it.message}",false)
+    }
+}
+
 fun pushData(universitas: String, semester: String, callback: (String, Boolean) -> Unit) {
 
     val uid = auth.currentUser?.uid.toString()
