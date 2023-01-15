@@ -156,6 +156,7 @@ fun pushData(universitas: String, semester: String, callback: (String, Boolean) 
 //logout
 fun logout(callback: (String, Boolean) -> Unit) {
     auth.signOut()
+
     callback("berhasil logout", true)
 }
 

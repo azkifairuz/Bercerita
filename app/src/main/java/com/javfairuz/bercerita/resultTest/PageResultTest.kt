@@ -57,8 +57,6 @@ fun PageResultTest(navHostController: NavHostController = rememberNavController(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-
         Text(text = "Tingkat stress anda  $tingkatStres", style = MaterialTheme.typography.h1)
         Button(
             onClick = { submit() }, modifier = Modifier
