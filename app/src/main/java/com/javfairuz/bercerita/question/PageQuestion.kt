@@ -47,7 +47,13 @@ fun PageQuestion(navHostController: NavHostController = rememberNavController())
         }
         //pindah ke result page dengan membawa data score
         if(currentQuestion == question.size -1){
-            navHostController.navigate("result/${score}")
+            navHostController.navigate("result/${score}"){
+                popUpTo(Graph.QUESTION){
+                    inclusive = true
+                }
+
+            }
+
         }
     }
 

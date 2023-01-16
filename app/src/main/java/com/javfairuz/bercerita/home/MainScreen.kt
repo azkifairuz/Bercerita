@@ -25,6 +25,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.javfairuz.bercerita.route.HomeNavGraph
+import com.javfairuz.bercerita.ui.theme.BluePrymary
 
 
 @Composable
@@ -46,7 +47,7 @@ fun myApp(navHostController: NavHostController = rememberNavController()) {
 
 @Composable
 fun TopApp(){
-    TopAppBar(modifier = Modifier.fillMaxWidth(),backgroundColor = Color(0xFFA4BE7B)){
+    TopAppBar(modifier = Modifier.fillMaxWidth(),backgroundColor = BluePrymary){
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Text("Bercerita", textAlign = TextAlign.Center, fontSize = 25.sp)
         }

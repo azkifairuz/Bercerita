@@ -77,7 +77,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.padding(20.dp))
 
             Text(
-                text = "Username",
+                text = "Email",
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.body1
@@ -87,7 +87,7 @@ fun LoginScreen(
                 value = email,
                 modifier = Modifier.fillMaxWidth(),
                 onValueChange = { email = it },
-                placeholder = { Text(text = "Masukan Ussername  anda") },
+                placeholder = { Text(text = "Masukan Email  anda") },
                 shape = RoundedCornerShape(8.dp),
                 colors = TextFieldDefaults.textFieldColors(
                     focusedIndicatorColor = Color.Transparent,

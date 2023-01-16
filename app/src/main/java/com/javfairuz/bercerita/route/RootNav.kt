@@ -44,7 +44,11 @@ fun RootNav(
                         pass
                     ) { massage, succes ->
                         if (succes) {
-                            navController.navigate(Graph.HOME)
+                            navController.navigate(Graph.HOME){
+                                popUpTo(Graph.AUTH){
+                                    inclusive = true
+                                }
+                            }
                         } else {
 
                             Toast.makeText(context, massage, Toast.LENGTH_SHORT).show()

@@ -106,7 +106,7 @@ fun RegisterScreen(
                 value = username,
                 modifier = Modifier.fillMaxWidth(),
                 onValueChange = { username = it },
-                placeholder = { Text(text = "Masukan Ussername  anda") },
+                placeholder = { Text(text = "Masukan Username  anda") },
                 shape = RoundedCornerShape(8.dp),
                 colors = TextFieldDefaults.textFieldColors(
                     focusedIndicatorColor = Color.Transparent,
@@ -171,30 +171,8 @@ fun RegisterScreen(
                     .height(49.dp),
                 shape = RoundedCornerShape(8.dp)
             ) {
-                Text(text = "Masuk", style = MaterialTheme.typography.button, fontSize = 16.sp)
+                Text(text = "Simpan", style = MaterialTheme.typography.button, fontSize = 16.sp)
             }
-
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                text = "Atau",
-                textAlign = TextAlign.Center
-            )
-            Button(
-                onClick = { validateRegister() },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(49.dp),
-                shape = RoundedCornerShape(8.dp),
-                border = BorderStroke(2.dp, color = MaterialTheme.colors.primary),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.White
-                )
-            ) {
-                Text(text = "Login", style = MaterialTheme.typography.button, fontSize = 16.sp)
-            }
-
         }
     }
 }

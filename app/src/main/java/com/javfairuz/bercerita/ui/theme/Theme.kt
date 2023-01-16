@@ -13,7 +13,7 @@ private val DarkColorPalette = darkColors(
 )
 
 private val LightColorPalette = lightColors(
-    primary = GreenPrymary,
+    primary = BluePrymary,
     primaryVariant = Purple700,
     secondary = Teal200
 
@@ -30,7 +30,7 @@ private val LightColorPalette = lightColors(
 @Composable
 fun BerceritaTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
-        DarkColorPalette
+        LightColorPalette
     } else {
         LightColorPalette
     }
