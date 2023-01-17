@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.javfairuz.bercerita.models.DataState
 import com.javfairuz.bercerita.models.DataUser
+import com.javfairuz.bercerita.ui.theme.BluePrymary
 
 
 @SuppressLint("CoroutineCreationDuringComposition")
@@ -128,7 +129,7 @@ fun item(user: DataUser, email: String) {
         ) {
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                backgroundColor = Color(0xFFA4BE7B)
+                backgroundColor = BluePrymary
             ) {
                 Column(
                     modifier = Modifier

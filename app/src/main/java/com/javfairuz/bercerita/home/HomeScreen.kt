@@ -1,7 +1,11 @@
 package com.javfairuz.bercerita.home
 
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -21,11 +25,13 @@ import com.javfairuz.bercerita.route.Graph
 
 @Composable
 fun Home(navHostController: NavHostController = rememberNavController()) {
+    var scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .fillMaxHeight()
-            .padding(horizontal = 25.dp, vertical = 20.dp),
+            .padding(horizontal = 25.dp, vertical = 20.dp)
+            .verticalScroll(scrollState),
     ) {
         Text(text = stringResource(id = R.string.Header), style = MaterialTheme.typography.h1, fontSize = 30.sp)
         Text(

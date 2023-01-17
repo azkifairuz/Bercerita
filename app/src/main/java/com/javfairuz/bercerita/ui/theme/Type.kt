@@ -15,7 +15,7 @@ val Typography: Typography
         h1 = TextStyle(
             fontFamily = PoppinsBold,
             fontWeight = FontWeight.Bold,
-            fontSize = 24.sp
+            fontSize = 20.sp
         ),
         body1 = TextStyle(
             fontFamily = PoppinsRegular,

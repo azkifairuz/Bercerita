@@ -10,10 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.javfairuz.bercerita.OnBoardingScreen
 import com.javfairuz.bercerita.PageBercerita.BerceritaScreen
-import com.javfairuz.bercerita.home.AboutScreen
-import com.javfairuz.bercerita.home.BottomNavItem
-import com.javfairuz.bercerita.home.Home
-import com.javfairuz.bercerita.home.ProfileScreen
+import com.javfairuz.bercerita.home.*
 import com.javfairuz.bercerita.models.DataState
 import com.javfairuz.bercerita.question.PageQuestion
 import com.javfairuz.bercerita.question.question
@@ -67,6 +64,9 @@ fun HomeNavGraph(
         }
         composable(route = Graph.QUESTION) {
             PageQuestion(navController)
+        }
+        composable(Graph.ARIGATOU){
+            ArigatouScreen(viewModel.user.orEmpty(),navController)
         }
         composable(
             route = "result/{score}",

@@ -1,8 +1,13 @@
 package com.javfairuz.bercerita.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -24,9 +29,10 @@ import com.javfairuz.bercerita.ui.theme.BerceritaTheme
 
 @Composable
 fun AboutScreen() {
-    BerceritaTheme() {
+    BerceritaTheme {
+        var scrollState = rememberScrollState()
         Column(
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 50.dp),
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 50.dp).fillMaxSize().verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
 
             ) {
@@ -48,8 +54,9 @@ fun AboutScreen() {
             CardProfile(name = "Azkia Ajmal Fairuz", subText = "Developer", image = R.drawable.azki_profile)
             Spacer(modifier = Modifier.padding(20.dp))
             CardProfile(name = "Esti Mara Qanita" , subText = "Perancang dan UI designer", image = R.drawable.esti_profile)
+            Spacer(modifier = Modifier.padding(20.dp))
 
-            }
+        }
 
         }
 }

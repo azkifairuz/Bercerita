@@ -122,6 +122,6 @@ object Graph {
     const val SIGNUP = "signup"
     const val BERCERITA = "bercerita"
     const val COMPLETE = "complete"
-
+    const val ARIGATOU = "arigatou"
 
 }

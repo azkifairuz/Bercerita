@@ -28,11 +28,12 @@ import org.w3c.dom.Document
 
 class AppViewModel : ViewModel() {
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val db = Firebase.firestore
-    val uid = auth.currentUser?.uid
-    val refs =
+
+    private val uid = auth.currentUser?.uid
+    private val refs =
         FirebaseDatabase.getInstance("https://bercerita-5abb7-default-rtdb.asia-southeast1.firebasedatabase.app").reference
 
+    val user = auth.currentUser?.displayName
     //user register
     fun RegisterUser(
         username: String,

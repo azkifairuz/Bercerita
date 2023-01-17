@@ -90,7 +90,7 @@ fun OnBoardingItem(
 
         Text(
             text = stringResource(id = items.title),
-            fontSize = 24.sp,
+            fontSize = 16.sp,
             style = MaterialTheme.typography.body1,
             fontWeight = FontWeight.Bold
         )
